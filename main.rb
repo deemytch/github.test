@@ -20,11 +20,22 @@ class Main < Sinatra::Base
     params[:p].gsub(/^https:\/\/github.com\/|^\//,'') =~ /^([^\/]+)\/([^\/]+)/
     @user = $1
     @proj = $2
-    uri = URI "https://api.github.com/repos/#{@user}/#{@proj}"
-    Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
-      @repo = JSON.parse( http.request(Net::HTTP::Get.new uri).body )
+    @base = 'https://api.github.com'
+    uri = {}
+    uri[:repo] = URI "#{@base}/repos/#{@user}/#{@proj}"
+    uri[:people] = URI "#{@base}/repos/#{@user}/#{@proj}/stats/contributors"
+    uri[:code_frequency] = URI "#{@base}/repos/#{@user}/#{@proj}/stats/code_frequency"
+    
+#TODO: error handling needed
+#TODO: caching 202 -> 200 waiting also
+    Net::HTTP.start(uri[:repo].host, uri[:repo].port, :use_ssl => true) do |http|
+      # repo common data
+      @repo = JSON.parse( http.request(Net::HTTP::Get.new uri[:repo]).body )
+      # contributors
+      @people = JSON.parse( http.request(Net::HTTP::Get.new uri[:people]).body )
+      # code frequency - additions and deletions per week
+      @code_frik = JSON.parse( http.request(Net::HTTP::Get.new uri[:code_frequency]).body )
     end
-    p @repo
     haml :mined
   end
   
