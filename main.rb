@@ -1,5 +1,4 @@
 require 'haml'
-require 'sass/plugin/rack'
 require 'sinatra/base'
 require 'json'
 require 'thin'
@@ -16,7 +15,9 @@ class Main < Sinatra::Base
 	end
 
   get '/s' do
-    p params
+    if params.nil? || params[:p].nil? || params[:p].empty?
+      redirect '/'
+    end
     params[:p].gsub(/^https:\/\/github.com\/|^\//,'') =~ /^([^\/]+)\/([^\/]+)/
     @user = $1
     @proj = $2
@@ -25,6 +26,11 @@ class Main < Sinatra::Base
     uri[:repo] = URI "#{@base}/repos/#{@user}/#{@proj}"
     uri[:people] = URI "#{@base}/repos/#{@user}/#{@proj}/stats/contributors"
     uri[:code_frequency] = URI "#{@base}/repos/#{@user}/#{@proj}/stats/code_frequency"
+
+#    @repo = {}
+#    @repo['description'] = 'test descr'
+#    @people = []
+#    @code_frik = []
     
 #TODO: error handling needed
 #TODO: caching 202 -> 200 waiting also
@@ -36,6 +42,7 @@ class Main < Sinatra::Base
       # code frequency - additions and deletions per week
       @code_frik = JSON.parse( http.request(Net::HTTP::Get.new uri[:code_frequency]).body )
     end
+
     haml :mined
   end
   

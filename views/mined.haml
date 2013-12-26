@@ -1,19 +1,29 @@
 .wrap
   .container
     .page-header
-      %h1 about #{@proj.capitalize} of an #{@user.capitalize}
+      %h1 about #{@user.capitalize}::#{@proj.capitalize}
       %p= @repo['description']
+      %p
+        %a{ href: "http://travis-ci.org/#{@user}/#{@proj}" }
+          %img{ src: "https://secure.travis-ci.org/#{@user}/#{@proj}.png", alt: 'Build Status', style: 'max-width:100%;' }
+        
+        %a{ href: "https://gemnasium.com/#{@user}/#{@proj}" }
+          %img{ src: "https://gemnasium.com/#{@user}/#{@proj}.png", alt: 'Dependency Status', style: 'max-width:100%;' }
+        
+        %a{ href: "https://codeclimate.com/github/#{@user}/#{@proj}" }
+          %img{ src: "https://codeclimate.com/github/#{@user}/#{@proj}.png", alt: 'Code Climate', style: 'max-width:100%;' }
     .row
       .col-md-12
         %ul
           %li Number of people was there: #{@people.size}
           %li Code deletions and additions frequency: #{@code_frik}
-#footer
-  .container
-    .row
-      %p
-        %form.form-inline{ role: 'form', action: '/s', method: 'get', id: 'main', name: 'main', role: 'search' }
+          
+  #footer
+    .container
+      .row
+        %p
+        %form.form-inline{ role: 'form', action: '/s', method: 'get', id: 'main', name: 'main' }
           .form-group.col-sm-10
-            %input.form-control{ type: 'text', placeholder: 'https://github.com/sinatra/sinatra/ or just /sinatra/sinatra/', dir: 'ltr', spellcheck: 'false' }
+            %input.form-control{ type: 'text', placeholder: 'https://github.com/sinatra/sinatra/ or just /sinatra/sinatra/', dir: 'ltr', spellcheck: 'false', name: 'p' }
           .form-group
             %button.btn.btn-default{ type: 'submit' } Go
