@@ -1,0 +1,17 @@
+.wrap
+  .container
+    .page-header
+      %h1 about #{@proj.capitalize} of an #{@user.capitalize}
+      %p= @repo['description']
+    .row
+      .col-md-12
+        here shall be dragons
+#footer
+  .container
+    .row
+      %p
+        %form.form-inline{ role: 'form', action: '/s', method: 'get', id: 'main', name: 'main', role: 'search' }
+          .form-group.col-sm-10
+            %input.form-control{ type: 'text', placeholder: 'https://github.com/sinatra/sinatra/ or just /sinatra/sinatra/', dir: 'ltr', spellcheck: 'false' }
+          .form-group
+            %button.btn.btn-default{ type: 'submit' } Go
