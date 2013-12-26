@@ -1,22 +1,17 @@
 .wrap
   .container
     .page-header
-      %h1 about #{@user.capitalize}::#{@proj.capitalize}
-      %p= @repo['description']
+      %h1 about #{@org_data['name']}
       %p
-        %a{ href: "http://travis-ci.org/#{@user}/#{@proj}" }
-          %img{ src: "https://secure.travis-ci.org/#{@user}/#{@proj}.png", alt: 'Build Status', style: 'max-width:100%;' }
-        
-        %a{ href: "https://gemnasium.com/#{@user}/#{@proj}" }
-          %img{ src: "https://gemnasium.com/#{@user}/#{@proj}.png", alt: 'Dependency Status', style: 'max-width:100%;' }
-        
-        %a{ href: "https://codeclimate.com/github/#{@user}/#{@proj}" }
-          %img{ src: "https://codeclimate.com/github/#{@user}/#{@proj}.png", alt: 'Code Climate', style: 'max-width:100%;' }
+        %a{ href: @org_data['blog'] }
+          blog,
+        %a{ href: @org_data['html_url'] }
+          github,
+        public repos: #{@org_data['public_repos']},
+        public gists: #{@org_data['public_gists']}
+
     .row
       .col-md-12
-        %ul
-          %li Number of people was there: #{@people.size}
-          %li Code deletions and additions frequency: #{@code_frik}
           
   #footer
     .container
