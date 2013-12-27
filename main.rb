@@ -62,8 +62,9 @@ class Main < Sinatra::Base
         @active = []
         count = 0 # showin only the first 10 brave programmers
         @people.each do |man|
-          break if(man[:events].size == 0)||(count >9)
+          break if(man[:events].size == 0)||(count > 9)
           @active << man
+          count+=1
         end
         # repo common data
         # @repo = JSON.parse( http.request(Net::HTTP::Get.new(uri[:repo], hdr )).body )
