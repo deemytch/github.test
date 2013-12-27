@@ -36,3 +36,5 @@ body {
 .container .text-muted {
   margin: 20px 0;
 }
+
+#streamed_tmp { display: none; }

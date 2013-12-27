@@ -13,9 +13,12 @@
 
     .row
       .col-md-12
-        -@active .each do |man|
-          %a{ href: man['html_url'] }
-            %img{ src: man['avatar_url'] }
+        -if @active.size > 0
+          -@active.each do |man|
+            %a{ href => man[:url] }
+              %img{ src => man[:ava] }
+        -else
+          No activity found for today, from 00:00 GMT
           
   #footer
     .container
