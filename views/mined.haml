@@ -13,12 +13,13 @@
 
     .row
       .col-md-12
+        %h4 The most active users for today, since 00:00 GMT
         -if @active.size > 0
           -@active.each do |man|
-            %a{ href => man[:url] }
-              %img{ src => man[:ava] }
+            %a{ :href => man[:url] }
+              %img{ :src => man[:ava] }
         -else
-          No activity found for today, from 00:00 GMT
+          No activity found for today, since 00:00 GMT
           
   #footer
     .container
