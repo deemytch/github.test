@@ -1,4 +1,8 @@
-TASK:
+## Run
+
+		bundle exec rackup
+
+## TASK:
 
 Github has a pretty sweet API. We would like you to build some application that is based on Sinatra and provides one of the following features:
 
